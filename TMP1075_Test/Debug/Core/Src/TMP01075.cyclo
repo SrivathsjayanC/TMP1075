@@ -1,0 +1,8 @@
+../Core/Src/TMP01075.c:9:19:TMP1075_Init	9
+../Core/Src/TMP01075.c:47:19:TMP1075_WriteReg	1
+../Core/Src/TMP01075.c:56:19:TMP1075_ReadReg	4
+../Core/Src/TMP01075.c:74:19:TMP1075_Reset	3
+../Core/Src/TMP01075.c:85:19:TMP1075_Trigger_Conv	3
+../Core/Src/TMP01075.c:95:19:TMP1075_Set_Upper_Limit	4
+../Core/Src/TMP01075.c:105:19:TMP1075_Set_Lower_Limit	4
+../Core/Src/TMP01075.c:115:19:TMP1075_Get_Temp_C	4
