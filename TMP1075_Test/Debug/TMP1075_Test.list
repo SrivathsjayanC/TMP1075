@@ -29,25 +29,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  12 .ARM.attributes 00000030  00000000  00000000  0000b1d4  2**0
                   CONTENTS, READONLY
- 13 .debug_info   0000af7c  00000000  00000000  0000b204  2**0
+ 13 .debug_info   0000af7f  00000000  00000000  0000b204  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 000019e3  00000000  00000000  00016180  2**0
+ 14 .debug_abbrev 00001a26  00000000  00000000  00016183  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00000a08  00000000  00000000  00017b68  2**3
+ 15 .debug_aranges 00000a08  00000000  00000000  00017bb0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 000007cd  00000000  00000000  00018570  2**0
+ 16 .debug_rnglists 000007cd  00000000  00000000  000185b8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00021686  00000000  00000000  00018d3d  2**0
+ 17 .debug_macro  00021694  00000000  00000000  00018d85  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0000d770  00000000  00000000  0003a3c3  2**0
+ 18 .debug_line   0000d772  00000000  00000000  0003a419  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000c7517  00000000  00000000  00047b33  2**0
+ 19 .debug_str    000c7517  00000000  00000000  00047b8b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  0010f04a  2**0
+ 20 .comment      00000043  00000000  00000000  0010f0a2  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00003e68  00000000  00000000  0010f090  2**2
+ 21 .debug_frame  00003e68  00000000  00000000  0010f0e8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000061  00000000  00000000  00112ef8  2**0
+ 22 .debug_line_str 00000061  00000000  00000000  00112f50  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1344,10 +1344,10 @@ Disassembly of section .text:
  800101e:	bf00      	nop
 
 08001020 <TMP1075_Init>:
-#include "TMP01075.h"
-
-static HAL_StatusTypeDef TMP1075_WriteReg(TMP1075_Handle_t *htmp,TMP1075_Reg_t Reg,uint16_t Data);
-
+ *                        or an I2C communication failure occurred during initialization.
+ *         - HAL_BUSY:    The I2C peripheral is busy and cannot process the reset or write requests.
+ *         - HAL_TIMEOUT: An I2C timeout occurred during the reset or configuration register write.
+ */
 HAL_StatusTypeDef TMP1075_Init(TMP1075_Handle_t *htmp)
 {
  8001020:	b580      	push	{r7, lr}
@@ -1497,6 +1497,10 @@ HAL_StatusTypeDef TMP1075_Init(TMP1075_Handle_t *htmp)
  80010ee:	bd80      	pop	{r7, pc}
 
 080010f0 <TMP1075_WriteReg>:
+ *         - HAL_ERROR:   An error occurred during the I2C transmission (e.g., NACK or parameter error).
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C transaction exceeded the specified maximum delay (TMP1075_I2C_DELAY).
+ */
 static HAL_StatusTypeDef TMP1075_WriteReg(TMP1075_Handle_t *htmp,TMP1075_Reg_t Reg,uint16_t Data)
 {
  80010f0:	b580      	push	{r7, lr}
@@ -1543,6 +1547,10 @@ static HAL_StatusTypeDef TMP1075_WriteReg(TMP1075_Handle_t *htmp,TMP1075_Reg_t R
  800113a:	bd80      	pop	{r7, pc}
 
 0800113c <TMP1075_ReadReg>:
+ *                        or an I2C communication error occurred.
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C read transaction exceeded the specified maximum delay (TMP1075_I2C_DELAY).
+ */
 HAL_StatusTypeDef TMP1075_ReadReg(TMP1075_Handle_t *htmp,TMP1075_Reg_t Tmp1075_Reg,uint16_t *pData)
 {
  800113c:	b580      	push	{r7, lr}
@@ -1621,6 +1629,10 @@ HAL_StatusTypeDef TMP1075_ReadReg(TMP1075_Handle_t *htmp,TMP1075_Reg_t Tmp1075_R
  80011b2:	bd80      	pop	{r7, pc}
 
 080011b4 <TMP1075_Reset>:
+ *                        communication error occurred (e.g., NACK).
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C transmit transaction exceeded the specified maximum delay (TMP1075_I2C_DELAY).
+ */
 HAL_StatusTypeDef TMP1075_Reset(TMP1075_Handle_t *htmp)
 {
  80011b4:	b580      	push	{r7, lr}
@@ -1664,7 +1676,10 @@ HAL_StatusTypeDef TMP1075_Reset(TMP1075_Handle_t *htmp)
  80011f2:	bd80      	pop	{r7, pc}
 
 080011f4 <TMP1075_Trigger_Conv>:
-//uses 1byte write mode
+ *                        or an I2C communication error occurred.
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C write transaction exceeded the specified maximum delay (TMP1075_I2C_DELAY).
+ */
 HAL_StatusTypeDef TMP1075_Trigger_Conv(TMP1075_Handle_t *htmp)
 {
  80011f4:	b580      	push	{r7, lr}
@@ -1716,7 +1731,10 @@ HAL_StatusTypeDef TMP1075_Trigger_Conv(TMP1075_Handle_t *htmp)
  8001248:	bd80      	pop	{r7, pc}
 
 0800124a <TMP1075_Set_Upper_Limit>:
-
+ *                        or value exceeds 0x0FFF), NACK, or an I2C communication error.
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C write transaction exceeded the specified maximum delay.
+ */
 HAL_StatusTypeDef TMP1075_Set_Upper_Limit(TMP1075_Handle_t *htmp, int16_t Val)
 {
  800124a:	b580      	push	{r7, lr}
@@ -1761,6 +1779,10 @@ HAL_StatusTypeDef TMP1075_Set_Upper_Limit(TMP1075_Handle_t *htmp, int16_t Val)
  800128e:	bd80      	pop	{r7, pc}
 
 08001290 <TMP1075_Set_Lower_Limit>:
+ *                        or value exceeds 0x0FFF), NACK, or an I2C communication error.
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C write transaction exceeded the specified maximum delay.
+ */
 HAL_StatusTypeDef TMP1075_Set_Lower_Limit(TMP1075_Handle_t *htmp, int16_t Val)
 {
  8001290:	b580      	push	{r7, lr}
@@ -1806,6 +1828,10 @@ HAL_StatusTypeDef TMP1075_Set_Lower_Limit(TMP1075_Handle_t *htmp, int16_t Val)
 	...
 
 080012d8 <TMP1075_Get_Temp_C>:
+ *                        or an I2C communication error occurred during the read operation.
+ *         - HAL_BUSY:    The I2C peripheral is currently locked and cannot accept a new request.
+ *         - HAL_TIMEOUT: The I2C read transaction exceeded the specified maximum delay.
+ */
 HAL_StatusTypeDef TMP1075_Get_Temp_C(TMP1075_Handle_t *htmp,float *pData)
 {
  80012d8:	b580      	push	{r7, lr}
@@ -1914,9 +1940,9 @@ int main(void)
  8001364:	4b2b      	ldr	r3, [pc, #172]	@ (8001414 <main+0xdc>)
  8001366:	2203      	movs	r2, #3
  8001368:	729a      	strb	r2, [r3, #10]
-  htmp.Init.faults = TMP1075_FAULT_4;
+  htmp.Init.faults = TMP1075_FAULT_1;
  800136a:	4b2a      	ldr	r3, [pc, #168]	@ (8001414 <main+0xdc>)
- 800136c:	2203      	movs	r2, #3
+ 800136c:	2200      	movs	r2, #0
  800136e:	72da      	strb	r2, [r3, #11]
   htmp.Init.op_mode = TMP1075_MODE_CONT_CONV;
  8001370:	4b28      	ldr	r3, [pc, #160]	@ (8001414 <main+0xdc>)
@@ -1929,10 +1955,10 @@ int main(void)
   TMP1075_Init(&htmp);
  800137c:	4825      	ldr	r0, [pc, #148]	@ (8001414 <main+0xdc>)
  800137e:	f7ff fe4f 	bl	8001020 <TMP1075_Init>
-  uint16_t val1 = 0x3C0;
+  uint16_t val1 = 0x3C0; // 60°C
  8001382:	f44f 7370 	mov.w	r3, #960	@ 0x3c0
  8001386:	f8a7 3044 	strh.w	r3, [r7, #68]	@ 0x44
-  uint16_t val2 = 0x320;
+  uint16_t val2 = 0x320; // 50°C
  800138a:	f44f 7348 	mov.w	r3, #800	@ 0x320
  800138e:	f8a7 3042 	strh.w	r3, [r7, #66]	@ 0x42
   //TMP1075_Set_Lower_Limit(&htmp,0x1E0);
@@ -2165,7 +2191,7 @@ static void MX_I2C1_Init(void)
  8001504:	4b12      	ldr	r3, [pc, #72]	@ (8001550 <MX_I2C1_Init+0x50>)
  8001506:	4a13      	ldr	r2, [pc, #76]	@ (8001554 <MX_I2C1_Init+0x54>)
  8001508:	601a      	str	r2, [r3, #0]
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 400000;
  800150a:	4b11      	ldr	r3, [pc, #68]	@ (8001550 <MX_I2C1_Init+0x50>)
  800150c:	4a12      	ldr	r2, [pc, #72]	@ (8001558 <MX_I2C1_Init+0x58>)
  800150e:	605a      	str	r2, [r3, #4]
@@ -2216,7 +2242,7 @@ static void MX_I2C1_Init(void)
  800154e:	bd80      	pop	{r7, pc}
  8001550:	200001f0 	.word	0x200001f0
  8001554:	40005400 	.word	0x40005400
- 8001558:	000186a0 	.word	0x000186a0
+ 8001558:	00061a80 	.word	0x00061a80
 
 0800155c <MX_USART2_UART_Init>:
   * @brief USART2 Initialization Function

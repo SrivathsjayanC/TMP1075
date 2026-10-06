@@ -1,8 +1,8 @@
-../Core/Src/TMP01075.c:11:19:TMP1075_Init	10
-../Core/Src/TMP01075.c:47:26:TMP1075_WriteReg	1
-../Core/Src/TMP01075.c:56:19:TMP1075_ReadReg	5
-../Core/Src/TMP01075.c:75:19:TMP1075_Reset	2
-../Core/Src/TMP01075.c:88:19:TMP1075_Trigger_Conv	3
-../Core/Src/TMP01075.c:98:19:TMP1075_Set_Upper_Limit	4
-../Core/Src/TMP01075.c:108:19:TMP1075_Set_Lower_Limit	4
-../Core/Src/TMP01075.c:118:19:TMP1075_Get_Temp_C	4
+../Core/Src/TMP01075.c:29:19:TMP1075_Init	10
+../Core/Src/TMP01075.c:83:26:TMP1075_WriteReg	1
+../Core/Src/TMP01075.c:112:19:TMP1075_ReadReg	5
+../Core/Src/TMP01075.c:148:19:TMP1075_Reset	2
+../Core/Src/TMP01075.c:178:19:TMP1075_Trigger_Conv	3
+../Core/Src/TMP01075.c:208:19:TMP1075_Set_Upper_Limit	4
+../Core/Src/TMP01075.c:239:19:TMP1075_Set_Lower_Limit	4
+../Core/Src/TMP01075.c:270:19:TMP1075_Get_Temp_C	4
