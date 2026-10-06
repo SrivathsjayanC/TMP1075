@@ -60,8 +60,8 @@ all: main-build
 main-build: TMP1075_Test.elf secondary-outputs
 
 # Tool invocations
-TMP1075_Test.elf TMP1075_Test.map: $(OBJS) $(USER_OBJS) E:\Embedded\ C\My_workspace\STM_GitHub\TMP1075_Test\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TMP1075_Test.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Embedded C\My_workspace\STM_GitHub\TMP1075_Test\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+TMP1075_Test.elf TMP1075_Test.map: $(OBJS) $(USER_OBJS) C:\Users\SRIVATHSJAYAN\git\TMP1075\TMP1075_Test\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TMP1075_Test.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\SRIVATHSJAYAN\git\TMP1075\TMP1075_Test\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TMP1075_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

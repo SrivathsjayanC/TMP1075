@@ -98,16 +98,20 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   float ff;
-  uint16_t data;
   htmp.hi2c = &hi2c1;
   htmp.Init.dev_addr = 0x48<<1;
   htmp.Init.thermostat_mode = TMP1075_THERMOSTAT_INT_MODE;
-  htmp.Init.conv_rate = TMP1075_CONV_RATE_27_5MS;
+  htmp.Init.conv_rate = TMP1075_CONV_RATE_220MS;
   htmp.Init.faults = TMP1075_FAULT_1;
   htmp.Init.op_mode = TMP1075_MODE_CONT_CONV;
   htmp.Init.pol = TMP1075_POL_HIGH;
   TMP1075_Init(&htmp);
-  TMP1075_ReadReg(&htmp, TMP1075_REG_CFG, &data);
+  uint16_t val1 = 0x3C0; // 60°C
+  uint16_t val2 = 0x320; // 50°C
+  //TMP1075_Set_Lower_Limit(&htmp,0x1E0);
+  TMP1075_Set_Upper_Limit(&htmp, val1);
+  TMP1075_Set_Lower_Limit(&htmp, val2);
+  uint8_t i=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -119,6 +123,11 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0))
 	  {
+		  i++;
+		  if(i>0)
+		  {
+			  TMP1075_Trigger_Conv(&htmp);
+		  }
 		  HAL_Delay(150);
 		  TMP1075_Get_Temp_C(&htmp, &ff);
 		  len = sprintf(c,"Temp: %f\r",ff);

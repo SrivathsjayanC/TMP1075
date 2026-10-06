@@ -1,8 +1,8 @@
-../Core/Src/TMP01075.c:9:19:TMP1075_Init	24	static
-../Core/Src/TMP01075.c:47:19:TMP1075_WriteReg	40	static
+../Core/Src/TMP01075.c:11:19:TMP1075_Init	24	static
+../Core/Src/TMP01075.c:47:26:TMP1075_WriteReg	40	static
 ../Core/Src/TMP01075.c:56:19:TMP1075_ReadReg	48	static
-../Core/Src/TMP01075.c:74:19:TMP1075_Reset	32	static
-../Core/Src/TMP01075.c:85:19:TMP1075_Trigger_Conv	32	static
-../Core/Src/TMP01075.c:95:19:TMP1075_Set_Upper_Limit	24	static
-../Core/Src/TMP01075.c:105:19:TMP1075_Set_Lower_Limit	24	static
-../Core/Src/TMP01075.c:115:19:TMP1075_Get_Temp_C	24	static
+../Core/Src/TMP01075.c:75:19:TMP1075_Reset	32	static
+../Core/Src/TMP01075.c:88:19:TMP1075_Trigger_Conv	32	static
+../Core/Src/TMP01075.c:98:19:TMP1075_Set_Upper_Limit	24	static
+../Core/Src/TMP01075.c:108:19:TMP1075_Set_Lower_Limit	24	static
+../Core/Src/TMP01075.c:118:19:TMP1075_Get_Temp_C	24	static
